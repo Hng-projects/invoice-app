@@ -1,7 +1,7 @@
-import React from "react";
+import { type ButtonHTMLAttributes } from "react";
 import styles from "./button.module.css";
 
-export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: "primary" | "secondary" | "tertiary" | "danger";
   icon?: React.ReactNode;
   wide?: boolean;
