@@ -1,5 +1,5 @@
 import { type InputHTMLAttributes } from "react";
-import styles from "./TextField.module.css";
+import styles from "./text-field.module.css";
 
 export interface TextFieldProps extends InputHTMLAttributes<HTMLInputElement> {
   label: string;

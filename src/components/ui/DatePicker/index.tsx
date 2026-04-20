@@ -19,7 +19,7 @@ export interface DatePickerProps {
   label: string;
   value?: Date;
   onChange?: (date: Date) => void;
-  className?: string; // Root container class
+  className?: string;
 }
 
 export function DatePicker({
