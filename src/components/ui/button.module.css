@@ -1,0 +1,96 @@
+.button {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 15px;
+  line-height: 15px;
+  letter-spacing: -0.25px;
+  border: none;
+  border-radius: 24px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+  padding: 16px 24px;
+}
+
+.withIcon {
+  padding: 8px 24px 8px 8px;
+}
+
+.wide {
+  width: 100%;
+}
+
+.iconContainer {
+  background-color: var(--color-white);
+  color: var(--color-primary);
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 16px;
+}
+
+.primary {
+  background-color: var(--color-primary);
+  color: var(--color-white);
+
+  &:hover {
+    background-color: var(--color-primary-light);
+  }
+}
+
+.secondary {
+  background-color: var(--color-lightest-gray);
+  color: var(--color-gray-dark);
+
+  &:hover {
+    background-color: var(--color-light-gray);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    & {
+      background-color: var(--color-dark-light);
+      color: var(--color-light-gray);
+    }
+
+    &:hover {
+      background-color: var(--color-white);
+      color: var(--color-gray-dark);
+    }
+  }
+}
+
+.tertiary {
+  background-color: var(--color-dark-gray);
+  color: var(--color-gray);
+
+  &:hover {
+    background-color: var(--color-black);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    & {
+      background-color: var(--color-dark-gray);
+      color: var(--color-light-gray);
+    }
+
+    &:hover {
+      background-color: var(--color-dark);
+    }
+  }
+}
+
+.danger {
+  background-color: var(--color-red);
+  color: var(--color-white);
+
+  &:hover {
+    background-color: var(--color-red-light);
+  }
+}
