@@ -3,6 +3,7 @@
   --color-primary-light: hsl(252, 100%, 73%);
   --color-dark: hsl(233, 31%, 17%);
   --color-dark-light: hsl(233, 30%, 21%);
+  --color-dark-gray: hsl(231, 20%, 27%);
   --color-light-gray: hsl(231, 73%, 93%);
   --color-gray: hsl(231, 20%, 61%);
   --color-gray-dark: hsl(231, 37%, 63%);
@@ -10,7 +11,9 @@
   --color-red: hsl(0, 80%, 63%);
   --color-red-light: hsl(0, 100%, 80%);
   --color-light-bg: hsl(240, 27%, 98%);
+  --color-lightest-gray: hsl(231, 67%, 99%);
   --color-dark-bg: hsl(233, 30%, 11%);
+  --color-white: hsl(0, 0%, 100%);
 
   --font-sans: "League Spartan", sans-serif;
 }
