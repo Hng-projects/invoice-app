@@ -1,0 +1,95 @@
+:root {
+  --color-primary: hsl(252, 94%, 67%);
+  --color-primary-light: hsl(252, 100%, 73%);
+  --color-dark: hsl(233, 31%, 17%);
+  --color-dark-light: hsl(233, 30%, 21%);
+  --color-light-gray: hsl(231, 73%, 93%);
+  --color-gray: hsl(231, 20%, 61%);
+  --color-gray-dark: hsl(231, 37%, 63%);
+  --color-black: hsl(228, 29%, 7%);
+  --color-red: hsl(0, 80%, 63%);
+  --color-red-light: hsl(0, 100%, 80%);
+  --color-light-bg: hsl(240, 27%, 98%);
+  --color-dark-bg: hsl(233, 30%, 11%);
+
+  --font-sans: "League Spartan", sans-serif;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  background-color: var(--color-light-bg);
+  color: var(--color-gray-dark);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  font-size: 13px;
+  line-height: 18px;
+  letter-spacing: -0.1px;
+  font-weight: 500;
+}
+
+.body-variant {
+  font-size: 13px;
+  line-height: 15px;
+  letter-spacing: -0.25px;
+  font-weight: 500;
+}
+
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: var(--color-dark-bg);
+    color: var(--color-light-gray);
+  }
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-sans);
+  color: var(--color-black);
+  margin-top: 0;
+  font-weight: 700;
+}
+
+h1 {
+  font-size: 36px;
+  line-height: 33px;
+  letter-spacing: -1px;
+}
+
+h2 {
+  font-size: 24px;
+  line-height: 22px;
+  letter-spacing: -0.75px;
+}
+
+h3 {
+  font-size: 15px;
+  line-height: 24px;
+  letter-spacing: -0.25px;
+}
+
+h4 {
+  font-size: 15px;
+  line-height: 15px;
+  letter-spacing: -0.25px;
+}
+
+@media (prefers-color-scheme: dark) {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    color: hsl(0, 0%, 100%);
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
