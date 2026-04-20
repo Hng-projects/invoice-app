@@ -1,0 +1,46 @@
+.appContainer {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+
+  @media (min-width: 1024px) {
+    & {
+      flex-direction: row;
+    }
+  }
+}
+
+.mainContent {
+  flex: 1;
+  padding-top: 80px;
+  display: flex;
+  justify-content: center;
+
+  @media (min-width: 1024px) {
+    & {
+      padding-top: 0;
+      padding-left: 103px;
+    }
+  }
+}
+
+.pageInner {
+  width: 100%;
+  max-width: 730px;
+  margin: 0 auto;
+  padding: 32px 24px;
+  display: flex;
+  flex-direction: column;
+
+  @media (min-width: 1024px) {
+    & {
+      padding: 72px 48px;
+    }
+  }
+
+  @media (min-width: 768px) {
+    & {
+      padding: 56px 48px;
+    }
+  }
+}
