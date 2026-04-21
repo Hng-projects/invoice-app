@@ -39,6 +39,8 @@ export function useInvoiceForm(
       }
     } else {
       setErrors({});
+      const form = document.getElementById("invoice-form") as HTMLFormElement;
+      if (form) form.reset();
     }
   }, [isOpen, isEdit, defaultValues]);
 
