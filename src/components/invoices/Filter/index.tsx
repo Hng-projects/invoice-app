@@ -3,19 +3,13 @@ import * as Popover from "@radix-ui/react-popover";
 import { FiChevronDown, FiChevronUp, FiCheck } from "react-icons/fi";
 import styles from "./filter.module.css";
 
-const STATUSES = ["Draft", "Pending", "Paid"];
+export interface FilterProps {
+  selectedStatuses: string[];
+  onToggleStatus: (status: string) => void;
+}
 
-export function Filter() {
+export function Filter({ selectedStatuses, onToggleStatus }: FilterProps) {
   const [open, setOpen] = useState(false);
-  const [selected, setSelected] = useState<string[]>([]);
-
-  const toggleStatus = (status: string) => {
-    setSelected((prev) =>
-      prev.includes(status)
-        ? prev.filter((s) => s !== status)
-        : [...prev, status]
-    );
-  };
 
   return (
     <Popover.Root open={open} onOpenChange={setOpen}>
@@ -36,20 +30,23 @@ export function Filter() {
           sideOffset={22}
           align="center"
         >
-          {STATUSES.map((status) => (
-            <label key={status} className={styles.option}>
-              <input
-                type="checkbox"
-                className={styles.checkbox}
-                checked={selected.includes(status)}
-                onChange={() => toggleStatus(status)}
-              />
-              <div className={styles.customCheck}>
-                <FiCheck size={12} className={styles.checkIcon} strokeWidth={4} />
-              </div>
-              {status}
-            </label>
-          ))}
+          {["Draft", "Pending", "Paid"].map((label) => {
+            const val = label.toLowerCase();
+            return (
+              <label key={val} className={styles.option}>
+                <input
+                  type="checkbox"
+                  className={styles.checkbox}
+                  checked={selectedStatuses.includes(val)}
+                  onChange={() => onToggleStatus(val)}
+                />
+                <div className={styles.customCheck}>
+                  <FiCheck size={12} className={styles.checkIcon} strokeWidth={4} />
+                </div>
+                {label}
+              </label>
+            );
+          })}
         </Popover.Content>
       </Popover.Portal>
     </Popover.Root>

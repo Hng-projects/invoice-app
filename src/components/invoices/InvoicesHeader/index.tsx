@@ -5,9 +5,15 @@ import styles from "./invoices-header.module.css";
 
 interface InvoicesHeaderProps {
   invoiceCount: number;
+  selectedStatuses: string[];
+  onToggleStatus: (status: string) => void;
 }
 
-export function InvoicesHeader({ invoiceCount }: InvoicesHeaderProps) {
+export function InvoicesHeader({
+  invoiceCount,
+  selectedStatuses,
+  onToggleStatus,
+}: InvoicesHeaderProps) {
   return (
     <header className={styles.header}>
       <div className={styles.left}>
@@ -24,7 +30,7 @@ export function InvoicesHeader({ invoiceCount }: InvoicesHeaderProps) {
         </p>
       </div>
       <div className={styles.right}>
-        <Filter />
+        <Filter selectedStatuses={selectedStatuses} onToggleStatus={onToggleStatus} />
         <Button icon={<FaPlus size={12} />} onClick={() => console.log("New Invoice")}>
           New<span className={styles.buttonText}>{" "}Invoice</span>
         </Button>
