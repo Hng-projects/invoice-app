@@ -18,7 +18,7 @@
   font-weight: 500;
   transition: color 0.2s ease;
 
-  @media (prefers-color-scheme: dark) {
+  :global([data-theme="dark"]) & {
     color: var(--color-light-gray);
   }
 }
@@ -48,7 +48,7 @@
   caret-color: var(--color-primary-light);
   width: 100%;
 
-  @media (prefers-color-scheme: dark) {
+  :global([data-theme="dark"]) & {
     & {
       background-color: var(--color-dark);
       border-color: var(--color-dark-light);

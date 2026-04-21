@@ -45,11 +45,9 @@ body {
   font-weight: 500;
 }
 
-@media (prefers-color-scheme: dark) {
-  body {
-    background-color: var(--color-dark-bg);
-    color: var(--color-light-gray);
-  }
+[data-theme="dark"] body {
+  background-color: var(--color-dark-bg);
+  color: var(--color-light-gray);
 }
 
 h1,
@@ -88,15 +86,13 @@ h4 {
   letter-spacing: -0.25px;
 }
 
-@media (prefers-color-scheme: dark) {
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    color: hsl(0, 0%, 100%);
-  }
+[data-theme="dark"] h1,
+[data-theme="dark"] h2,
+[data-theme="dark"] h3,
+[data-theme="dark"] h4,
+[data-theme="dark"] h5,
+[data-theme="dark"] h6 {
+  color: var(--color-white);
 }
 
 * {

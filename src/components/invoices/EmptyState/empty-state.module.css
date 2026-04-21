@@ -40,7 +40,7 @@
   color: var(--color-black);
   margin: 0 0 24px 0;
 
-  @media (prefers-color-scheme: dark) {
+  :global([data-theme="dark"]) & {
     & {
       color: var(--color-white);
     }
@@ -62,7 +62,7 @@
     }
   }
 
-  @media (prefers-color-scheme: dark) {
+  :global([data-theme="dark"]) & {
     & {
       color: var(--color-light-gray);
     }

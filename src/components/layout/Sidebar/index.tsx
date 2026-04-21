@@ -1,21 +1,11 @@
-import { useState, useEffect } from "react";
-import { FaMoon, FaCircle } from "react-icons/fa";
+import { FaMoon, FaSun } from "react-icons/fa";
 import styles from "./sidebar.module.css";
 import avatarImg from "../../../assets/avatar.png";
+import { useTheme } from "../../../contexts/ThemeContext";
 
 export function Sidebar() {
-  const [isDarkMode, setIsDarkMode] = useState(false);
-
-  useEffect(() => {
-    const prefersDark = window.matchMedia(
-      "(prefers-color-scheme: dark)",
-    ).matches;
-    setIsDarkMode(prefersDark);
-  }, []);
-
-  const toggleTheme = () => {
-    setIsDarkMode(!isDarkMode);
-  };
+  const { theme, toggleTheme } = useTheme();
+  const isDarkMode = theme === "dark";
 
   return (
     <aside className={styles.sidebar}>
@@ -29,8 +19,9 @@ export function Sidebar() {
           className={styles.themeButton}
           onClick={toggleTheme}
           aria-label="Toggle theme"
+          type="button"
         >
-          {isDarkMode ? <FaCircle size={20} /> : <FaMoon size={20} />}
+          {isDarkMode ? <FaSun size={20} /> : <FaMoon size={20} />}
         </button>
 
         <div className={styles.avatarContainer}>

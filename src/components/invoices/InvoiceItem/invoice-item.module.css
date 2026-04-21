@@ -14,7 +14,7 @@
     border-color: var(--color-primary);
   }
 
-  @media (prefers-color-scheme: dark) {
+  :global([data-theme="dark"]) & {
     & {
       background-color: var(--color-dark-light);
     }
@@ -72,7 +72,7 @@
   font-weight: 700;
   color: var(--color-black);
 
-  @media (prefers-color-scheme: dark) {
+  :global([data-theme="dark"]) & {
     & {
       color: var(--color-white);
     }
@@ -95,7 +95,7 @@
   font-weight: 500;
   color: var(--color-gray);
 
-  @media (prefers-color-scheme: dark) {
+  :global([data-theme="dark"]) & {
     & {
       color: var(--color-light-gray);
     }
@@ -115,7 +115,7 @@
   font-weight: 500;
   color: var(--color-gray-dark);
 
-  @media (prefers-color-scheme: dark) {
+  :global([data-theme="dark"]) & {
     & {
       color: var(--color-white);
     }
@@ -135,7 +135,7 @@
   font-weight: 700;
   color: var(--color-black);
 
-  @media (prefers-color-scheme: dark) {
+  :global([data-theme="dark"]) & {
     & {
       color: var(--color-white);
     }

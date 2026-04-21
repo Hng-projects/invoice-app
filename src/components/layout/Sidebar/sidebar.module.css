@@ -10,7 +10,7 @@
   z-index: 100;
   transition: background-color 0.2s ease;
 
-  @media (prefers-color-scheme: dark) {
+  :global([data-theme="dark"]) & {
     & {
       background-color: var(--color-dark);
     }

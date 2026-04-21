@@ -12,7 +12,7 @@
   top: 80px;
   left: 0;
 
-  @media (prefers-color-scheme: dark) {
+  :global([data-theme="dark"]) & {
     background: var(--color-dark);
   }
 
@@ -66,7 +66,7 @@
   margin-bottom: 24px;
   padding: 0;
 
-  @media (prefers-color-scheme: dark) {
+  :global([data-theme="dark"]) & {
     color: var(--color-white);
   }
 
@@ -82,7 +82,7 @@
   color: var(--color-black);
   margin-bottom: 48px;
 
-  @media (prefers-color-scheme: dark) {
+  :global([data-theme="dark"]) & {
     color: var(--color-white);
   }
 }
@@ -243,7 +243,7 @@
   pointer-events: none;
   font-weight: 700;
 
-  @media (prefers-color-scheme: dark) {
+  :global([data-theme="dark"]) & {
     color: var(--color-light-gray);
   }
 }
@@ -265,7 +265,7 @@
   color: var(--color-gray-dark);
   align-self: flex-start;
 
-  @media (prefers-color-scheme: dark) {
+  :global([data-theme="dark"]) & {
     color: var(--color-light-gray);
   }
 
@@ -338,7 +338,7 @@
     font-size: 13px;
   }
 
-  @media (prefers-color-scheme: dark) {
+  :global([data-theme="dark"]) & {
     background-color: var(--color-dark);
   }
 

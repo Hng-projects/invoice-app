@@ -12,7 +12,7 @@
   font-weight: 500;
   transition: color 0.2s ease;
 
-  @media (prefers-color-scheme: dark) {
+  :global([data-theme="dark"]) & {
     color: var(--color-light-gray);
   }
 }
@@ -34,7 +34,7 @@
   cursor: pointer;
   transition: border-color 0.2s ease;
 
-  @media (prefers-color-scheme: dark) {
+  :global([data-theme="dark"]) & {
     background-color: var(--color-dark);
     border-color: var(--color-dark-light);
     color: var(--color-white);
@@ -63,7 +63,7 @@
   font-family: var(--font-sans);
   box-sizing: border-box;
 
-  @media (prefers-color-scheme: dark) {
+  :global([data-theme="dark"]) & {
     background-color: var(--color-dark-light);
     box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.25);
   }
@@ -92,7 +92,7 @@
   font-weight: 700;
   color: var(--color-black);
 
-  @media (prefers-color-scheme: dark) {
+  :global([data-theme="dark"]) & {
     color: var(--color-light-gray);
   }
 }
@@ -116,7 +116,7 @@
   padding: 0;
   transition: color 0.2s ease;
 
-  @media (prefers-color-scheme: dark) {
+  :global([data-theme="dark"]) & {
     color: var(--color-light-gray);
   }
 
@@ -129,7 +129,7 @@
 .dayOutside {
   color: var(--color-light-gray);
 
-  @media (prefers-color-scheme: dark) {
+  :global([data-theme="dark"]) & {
     color: var(--color-gray-dark);
   }
 }
@@ -138,8 +138,6 @@
   color: var(--color-primary-light);
 }
 
-@media (prefers-color-scheme: dark) {
-  .daySelected {
-    color: var(--color-primary-light);
-  }
+:global([data-theme="dark"]) .daySelected {
+  color: var(--color-primary-light);
 }
