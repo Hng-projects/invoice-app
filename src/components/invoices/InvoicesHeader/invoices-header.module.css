@@ -68,6 +68,26 @@
   }
 }
 
+.mobileSubtitle {
+  display: inline;
+
+  @media (min-width: 768px) {
+    & {
+      display: none;
+    }
+  }
+}
+
+.desktopSubtitle {
+  display: none;
+
+  @media (min-width: 768px) {
+    & {
+      display: inline;
+    }
+  }
+}
+
 .right {
   display: flex;
   align-items: center;
