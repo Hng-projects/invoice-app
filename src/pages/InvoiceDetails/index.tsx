@@ -1,0 +1,178 @@
+import { Link, useParams, useOutletContext, useNavigate } from "react-router";
+import { FiChevronLeft } from "react-icons/fi";
+import { StatusBadge } from "../../components/invoices/StatusBadge";
+import { Button } from "../../components/ui/Button";
+import type { Invoice } from "../../types";
+import styles from "./invoice-details.module.css";
+import type { Dispatch, SetStateAction } from "react";
+
+export function InvoiceDetails() {
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const { invoices, setInvoices } = useOutletContext<{
+    invoices: Invoice[];
+    setInvoices: Dispatch<SetStateAction<Invoice[]>>;
+  }>();
+
+  const invoice = invoices.find((inv) => inv.id === id);
+
+  if (!invoice) {
+    return (
+      <div className={styles.container}>
+        <div className={styles.notFound}>Invoice not found</div>
+      </div>
+    );
+  }
+
+  const formatCurrency = (amount: number) => {
+    return new Intl.NumberFormat("en-GB", {
+      style: "currency",
+      currency: "GBP",
+    }).format(amount);
+  };
+
+  const handleMarkAsPaid = () => {
+    setInvoices((prev) =>
+      prev.map((inv) => (inv.id === id ? { ...inv, status: "paid" } : inv)),
+    );
+  };
+
+  const handleDelete = () => {
+    setInvoices((prev) => prev.filter((inv) => inv.id !== id));
+    navigate("/");
+  };
+
+  return (
+    <div className={styles.container}>
+      <Link to="/" className={styles.goBack}>
+        <FiChevronLeft size={16} /> Go back
+      </Link>
+
+      <div className={styles.actionBar}>
+        <div className={styles.statusGroup}>
+          <span>Status</span>
+          <StatusBadge status={invoice.status} />
+        </div>
+        <div className={styles.desktopButtons}>
+          <Button variant="secondary" onClick={() => {}}>
+            Edit
+          </Button>
+          <Button variant="danger" onClick={handleDelete}>
+            Delete
+          </Button>
+          {invoice.status !== "paid" && (
+            <Button variant="primary" onClick={handleMarkAsPaid}>
+              Mark as Paid
+            </Button>
+          )}
+        </div>
+      </div>
+
+      <div className={styles.detailsCard}>
+        <div className={styles.cardHeader}>
+          <div className={styles.idGroup}>
+            <span className={styles.id}>
+              <span className={styles.hash}>#</span>
+              {invoice.id}
+            </span>
+            <span className={styles.description}>{invoice.description}</span>
+          </div>
+          <div className={styles.senderAddress}>
+            <span>{invoice.senderAddress.street}</span>
+            <span>{invoice.senderAddress.city}</span>
+            <span>{invoice.senderAddress.postCode}</span>
+            <span>{invoice.senderAddress.country}</span>
+          </div>
+        </div>
+
+        <div className={styles.middleGrid}>
+          <div className={styles.datesGroup}>
+            <div className={styles.fieldGroup}>
+              <span className={styles.label}>Invoice Date</span>
+              <span className={styles.value}>{invoice.createdAt}</span>
+            </div>
+            <div className={styles.fieldGroup}>
+              <span className={styles.label}>Payment Due</span>
+              <span className={styles.value}>{invoice.paymentDue}</span>
+            </div>
+          </div>
+          <div className={styles.fieldGroup}>
+            <span className={styles.label}>Bill To</span>
+            <span className={styles.value}>{invoice.clientName}</span>
+            <div className={styles.clientAddress}>
+              <span>{invoice.clientAddress.street}</span>
+              <span>{invoice.clientAddress.city}</span>
+              <span>{invoice.clientAddress.postCode}</span>
+              <span>{invoice.clientAddress.country}</span>
+            </div>
+          </div>
+          <div className={styles.fieldGroup}>
+            <span className={styles.label}>Sent to</span>
+            <span className={styles.value}>{invoice.clientEmail}</span>
+          </div>
+        </div>
+
+        <div className={styles.itemsTableWrapper}>
+          <div className={styles.tablePaddingLayer}>
+            <table className={styles.itemsTable}>
+              <thead>
+                <tr>
+                  <th>Item Name</th>
+                  <th>QTY.</th>
+                  <th>Price</th>
+                  <th>Total</th>
+                </tr>
+              </thead>
+              <tbody>
+                {invoice.items.map((item, idx) => (
+                  <tr key={idx}>
+                    <td className={styles.boldColumnLeft}>
+                      <span className={styles.desktopItemName}>
+                        {item.name}
+                      </span>
+                      <div className={styles.mobileItemDetails}>
+                        <span className={styles.mobileItemName}>
+                          {item.name}
+                        </span>
+                        <span className={styles.mobileItemMath}>
+                          {item.quantity} x {formatCurrency(item.price)}
+                        </span>
+                      </div>
+                    </td>
+                    <td className={styles.desktopOnly}>{item.quantity}</td>
+                    <td className={styles.desktopOnly}>
+                      {formatCurrency(item.price)}
+                    </td>
+                    <td className={styles.boldColumn}>
+                      {formatCurrency(item.total)}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <div className={styles.tableFooter}>
+            <span>Amount Due</span>
+            <span className={styles.grandTotal}>
+              {formatCurrency(invoice.total)}
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div className={styles.mobileButtons}>
+        <Button variant="secondary" onClick={() => {}}>
+          Edit
+        </Button>
+        <Button variant="danger" onClick={handleDelete}>
+          Delete
+        </Button>
+        {invoice.status !== "paid" && (
+          <Button variant="primary" onClick={handleMarkAsPaid}>
+            Mark as Paid
+          </Button>
+        )}
+      </div>
+    </div>
+  );
+}
