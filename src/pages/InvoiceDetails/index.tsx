@@ -72,7 +72,7 @@ export function InvoiceDetails() {
           <Button variant="danger" onClick={() => setIsDeleteModalOpen(true)}>
             Delete
           </Button>
-          {invoice.status !== "paid" && (
+          {invoice.status === "pending" && (
             <Button variant="primary" onClick={handleMarkAsPaid}>
               Mark as Paid
             </Button>
@@ -181,7 +181,7 @@ export function InvoiceDetails() {
         <Button variant="danger" onClick={() => setIsDeleteModalOpen(true)}>
           Delete
         </Button>
-        {invoice.status !== "paid" && (
+        {invoice.status === "pending" && (
           <Button variant="primary" onClick={handleMarkAsPaid}>
             Mark as Paid
           </Button>
