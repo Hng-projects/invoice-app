@@ -62,9 +62,8 @@
   }
 
   &:focus,
-  &:focus-visible,
   &:active {
-    border-color: var(--color-primary-light) !important;
+    border-color: var(--color-primary-light);
   }
 }
 
