@@ -44,10 +44,6 @@
   &:focus,
   &[data-state="open"] {
     border-color: var(--color-primary-light);
-
-    @media (prefers-color-scheme: dark) {
-      border-color: var(--color-dark-light);
-    }
   }
 }
 
@@ -127,10 +123,6 @@
   &:hover,
   &:focus {
     color: var(--color-primary-light);
-
-    @media (prefers-color-scheme: dark) {
-      color: var(--color-primary-light);
-    }
   }
 }
 
