@@ -14,6 +14,7 @@ export interface DropdownProps {
   value?: string;
   onValueChange?: (value: string) => void;
   placeholder?: string;
+  portalContainer?: HTMLElement | null;
   className?: string;
 }
 
@@ -24,6 +25,7 @@ export function Dropdown({
   value,
   onValueChange,
   placeholder,
+  portalContainer,
   className = "",
 }: DropdownProps) {
   return (
@@ -40,7 +42,7 @@ export function Dropdown({
           </Select.Icon>
         </Select.Trigger>
 
-        <Select.Portal>
+        <Select.Portal container={portalContainer}>
           <Select.Content
             className={styles.content}
             position="popper"

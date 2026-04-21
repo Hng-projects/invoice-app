@@ -19,6 +19,7 @@ export interface DatePickerProps {
   label: string;
   value?: Date;
   onChange?: (date: Date) => void;
+  portalContainer?: HTMLElement | null;
   className?: string;
 }
 
@@ -26,6 +27,7 @@ export function DatePicker({
   label,
   value,
   onChange,
+  portalContainer,
   className = "",
 }: DatePickerProps) {
   const id = useId();
@@ -69,7 +71,7 @@ export function DatePicker({
           </button>
         </Popover.Trigger>
 
-        <Popover.Portal>
+        <Popover.Portal container={portalContainer}>
           <Popover.Content
             className={styles.content}
             sideOffset={8}
