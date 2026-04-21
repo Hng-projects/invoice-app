@@ -11,6 +11,10 @@
   --color-gray-dark: hsl(231, 37%, 63%);
   --color-black: hsl(228, 29%, 7%);
   --color-red: hsl(0, 80%, 63%);
+  --color-paid: hsl(160, 67%, 52%);
+  --color-pending: hsl(34, 100%, 50%);
+  --color-draft: hsl(231, 20%, 27%);
+  --color-draft-light: hsl(231, 73%, 93%);
   --color-red-light: hsl(0, 100%, 80%);
   --color-light-bg: hsl(240, 27%, 98%);
   --color-lightest-gray: hsl(231, 67%, 99%);
