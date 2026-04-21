@@ -1,5 +1,5 @@
 import { FiChevronLeft } from "react-icons/fi";
-import type { InvoiceItemProps } from "../InvoiceItem";
+import type { Invoice } from "../../../types";
 import { BillFromSection } from "./BillFromSection";
 import { BillToSection } from "./BillToSection";
 import { InvoiceDetailsSection } from "./InvoiceDetailsSection";
@@ -13,12 +13,17 @@ export interface InvoiceFormProps {
   isOpen: boolean;
   onClose: () => void;
   isEdit?: boolean;
-  onSave?: (invoice: InvoiceItemProps) => void;
+  onSave?: (invoice: Invoice) => void;
 }
 
-export function InvoiceForm({ isOpen, onClose, isEdit, onSave }: InvoiceFormProps) {
+export function InvoiceForm({
+  isOpen,
+  onClose,
+  isEdit,
+  onSave,
+}: InvoiceFormProps) {
   const { dialogRef, portalContainer } = useNativeModal(isOpen);
-  
+
   const {
     items,
     errors,
@@ -33,12 +38,12 @@ export function InvoiceForm({ isOpen, onClose, isEdit, onSave }: InvoiceFormProp
     handleSubmit,
     saveInvoice,
     hasEmptyErrors,
-    hasItemsError
+    hasItemsError,
   } = useInvoiceForm(isOpen, onClose, isEdit, onSave);
 
   return (
-    <dialog 
-      ref={dialogRef} 
+    <dialog
+      ref={dialogRef}
       className={styles.dialog}
       onCancel={(e) => {
         e.preventDefault();
@@ -46,27 +51,39 @@ export function InvoiceForm({ isOpen, onClose, isEdit, onSave }: InvoiceFormProp
       }}
     >
       <div className={styles.scrollArea}>
-        <button className={styles.goBack} onClick={onClose} aria-label="Go back" type="button">
+        <button
+          className={styles.goBack}
+          onClick={onClose}
+          aria-label="Go back"
+          type="button"
+        >
           <FiChevronLeft size={16} /> Go back
         </button>
 
-        <h2 className={styles.mainTitle}>{isEdit ? "Edit #XM9141" : "New Invoice"}</h2>
+        <h2 className={styles.mainTitle}>
+          {isEdit ? "Edit #XM9141" : "New Invoice"}
+        </h2>
 
-        <form id="invoice-form" className={styles.form} onSubmit={handleSubmit} onKeyDown={preventEnterSubmit}>
+        <form
+          id="invoice-form"
+          className={styles.form}
+          onSubmit={handleSubmit}
+          onKeyDown={preventEnterSubmit}
+        >
           <BillFromSection errors={errors} />
 
           <BillToSection errors={errors} />
 
-          <InvoiceDetailsSection 
-            errors={errors} 
-            invoiceDate={invoiceDate} 
+          <InvoiceDetailsSection
+            errors={errors}
+            invoiceDate={invoiceDate}
             setInvoiceDate={setInvoiceDate}
             paymentTerms={paymentTerms}
             setPaymentTerms={setPaymentTerms}
             portalContainer={portalContainer}
           />
 
-          <ItemListSection 
+          <ItemListSection
             items={items}
             errors={errors}
             onItemChange={handleItemChange}
@@ -83,7 +100,11 @@ export function InvoiceForm({ isOpen, onClose, isEdit, onSave }: InvoiceFormProp
         </form>
       </div>
 
-      <ActionBar isEdit={isEdit} onClose={onClose} onSaveDraft={() => saveInvoice("draft")} />
+      <ActionBar
+        isEdit={isEdit}
+        onClose={onClose}
+        onSaveDraft={() => saveInvoice("draft")}
+      />
     </dialog>
   );
 }

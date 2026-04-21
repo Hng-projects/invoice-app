@@ -1,8 +1,9 @@
-import { InvoiceItem, type InvoiceItemProps } from "../InvoiceItem";
+import { InvoiceItem } from "../InvoiceItem";
 import styles from "./invoice-list.module.css";
+import type { Invoice } from "../../../types";
 
 interface InvoiceListProps {
-  invoices: InvoiceItemProps[];
+  invoices: Invoice[];
 }
 
 export function InvoiceList({ invoices }: InvoiceListProps) {

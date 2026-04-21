@@ -3,13 +3,7 @@ import { StatusBadge } from "../StatusBadge";
 import styles from "./invoice-item.module.css";
 import { Link } from "react-router";
 
-export interface InvoiceItemProps {
-  id: string;
-  paymentDue: string;
-  clientName: string;
-  total: number;
-  status: "paid" | "pending" | "draft";
-}
+import type { Invoice } from "../../../types";
 
 export function InvoiceItem({
   id,
@@ -17,7 +11,7 @@ export function InvoiceItem({
   clientName,
   total,
   status,
-}: InvoiceItemProps) {
+}: Invoice) {
   const formattedTotal = new Intl.NumberFormat("en-GB", {
     style: "currency",
     currency: "GBP",
