@@ -1,5 +1,5 @@
 import { useState, useEffect, type FormEvent } from "react";
-import { format, addDays } from "date-fns";
+import { format, addDays, parse } from "date-fns";
 import type { Invoice } from "../../../../types";
 import type { FormItem } from "../types";
 
@@ -7,6 +7,7 @@ export function useInvoiceForm(
   isOpen: boolean,
   onClose: () => void,
   isEdit: boolean | undefined,
+  defaultValues: Invoice | undefined,
   onSave: ((invoice: Invoice) => void) | undefined,
 ) {
   const [items, setItems] = useState<FormItem[]>([
@@ -17,10 +18,29 @@ export function useInvoiceForm(
   const [paymentTerms, setPaymentTerms] = useState<string>("30");
 
   useEffect(() => {
-    if (!isOpen) {
+    if (isOpen) {
+      if (isEdit && defaultValues) {
+        setItems(
+          defaultValues.items.map((item) => ({
+            id: Math.random().toString(),
+            name: item.name,
+            qty: item.quantity.toString(),
+            price: item.price.toString(),
+            total: item.total,
+          })),
+        );
+        const parsedDate = parse(defaultValues.createdAt, "dd MMM yyyy", new Date());
+        setInvoiceDate(isNaN(parsedDate.getTime()) ? new Date() : parsedDate);
+        setPaymentTerms(defaultValues.paymentTerms.toString());
+      } else {
+        setItems([{ id: "1", name: "", qty: "", price: "", total: 0 }]);
+        setInvoiceDate(new Date());
+        setPaymentTerms("30");
+      }
+    } else {
       setErrors({});
     }
-  }, [isOpen]);
+  }, [isOpen, isEdit, defaultValues]);
 
   const handleAddItem = () => {
     setItems([
@@ -143,7 +163,7 @@ export function useInvoiceForm(
     const paymentDue = format(due, "dd MMM yyyy");
 
     onSave({
-      id: "RT" + Math.floor(Math.random() * 9000 + 1000),
+      id: (isEdit && defaultValues) ? defaultValues.id : "RT" + Math.floor(Math.random() * 9000 + 1000),
       createdAt: format(invoiceDate, "dd MMM yyyy"),
       paymentDue,
       description: (formData.get("description") as string) || "Graphic Design",

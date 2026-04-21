@@ -14,6 +14,7 @@ export interface InvoiceFormProps {
   onClose: () => void;
   isEdit?: boolean;
   onSave?: (invoice: Invoice) => void;
+  defaultValues?: Invoice;
 }
 
 export function InvoiceForm({
@@ -21,6 +22,7 @@ export function InvoiceForm({
   onClose,
   isEdit,
   onSave,
+  defaultValues,
 }: InvoiceFormProps) {
   const { dialogRef, portalContainer } = useNativeModal(isOpen);
 
@@ -39,7 +41,7 @@ export function InvoiceForm({
     saveInvoice,
     hasEmptyErrors,
     hasItemsError,
-  } = useInvoiceForm(isOpen, onClose, isEdit, onSave);
+  } = useInvoiceForm(isOpen, onClose, isEdit, defaultValues, onSave);
 
   return (
     <dialog
@@ -61,7 +63,7 @@ export function InvoiceForm({
         </button>
 
         <h2 className={styles.mainTitle}>
-          {isEdit ? "Edit #XM9141" : "New Invoice"}
+          {isEdit ? `Edit #${defaultValues?.id}` : "New Invoice"}
         </h2>
 
         <form
@@ -70,12 +72,13 @@ export function InvoiceForm({
           onSubmit={handleSubmit}
           onKeyDown={preventEnterSubmit}
         >
-          <BillFromSection errors={errors} />
+          <BillFromSection errors={errors} defaultValues={defaultValues} />
 
-          <BillToSection errors={errors} />
+          <BillToSection errors={errors} defaultValues={defaultValues} />
 
           <InvoiceDetailsSection
             errors={errors}
+            defaultValues={defaultValues}
             invoiceDate={invoiceDate}
             setInvoiceDate={setInvoiceDate}
             paymentTerms={paymentTerms}

@@ -1,10 +1,11 @@
+import { useState, type Dispatch, type SetStateAction } from "react";
 import { Link, useParams, useOutletContext, useNavigate } from "react-router";
 import { FiChevronLeft } from "react-icons/fi";
 import { StatusBadge } from "../../components/invoices/StatusBadge";
 import { Button } from "../../components/ui/Button";
+import { InvoiceForm } from "../../components/invoices/InvoiceForm";
 import type { Invoice } from "../../types";
 import styles from "./invoice-details.module.css";
-import type { Dispatch, SetStateAction } from "react";
 
 export function InvoiceDetails() {
   const { id } = useParams();
@@ -15,6 +16,13 @@ export function InvoiceDetails() {
   }>();
 
   const invoice = invoices.find((inv) => inv.id === id);
+  const [isEditFormOpen, setIsEditFormOpen] = useState(false);
+
+  const handleSaveInvoice = (updatedInvoice: Invoice) => {
+    setInvoices((prev) =>
+      prev.map((inv) => (inv.id === updatedInvoice.id ? updatedInvoice : inv)),
+    );
+  };
 
   if (!invoice) {
     return (
@@ -54,9 +62,11 @@ export function InvoiceDetails() {
           <StatusBadge status={invoice.status} />
         </div>
         <div className={styles.desktopButtons}>
-          <Button variant="secondary" onClick={() => {}}>
-            Edit
-          </Button>
+          {invoice.status !== "paid" && (
+            <Button variant="secondary" onClick={() => setIsEditFormOpen(true)}>
+              Edit
+            </Button>
+          )}
           <Button variant="danger" onClick={handleDelete}>
             Delete
           </Button>
@@ -161,9 +171,11 @@ export function InvoiceDetails() {
       </div>
 
       <div className={styles.mobileButtons}>
-        <Button variant="secondary" onClick={() => {}}>
-          Edit
-        </Button>
+        {invoice.status !== "paid" && (
+          <Button variant="secondary" onClick={() => setIsEditFormOpen(true)}>
+            Edit
+          </Button>
+        )}
         <Button variant="danger" onClick={handleDelete}>
           Delete
         </Button>
@@ -173,6 +185,14 @@ export function InvoiceDetails() {
           </Button>
         )}
       </div>
+
+      <InvoiceForm 
+        isOpen={isEditFormOpen} 
+        onClose={() => setIsEditFormOpen(false)} 
+        isEdit={true} 
+        defaultValues={invoice}
+        onSave={handleSaveInvoice}
+      />
     </div>
   );
 }

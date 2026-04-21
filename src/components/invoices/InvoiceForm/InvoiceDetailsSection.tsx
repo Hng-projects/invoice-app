@@ -1,6 +1,7 @@
 import { DatePicker } from "../../ui/DatePicker";
 import { Dropdown } from "../../ui/Dropdown";
 import { TextField } from "../../ui/TextField";
+import type { Invoice } from "../../../types";
 import styles from "./invoice-form.module.css";
 
 interface InvoiceDetailsSectionProps {
@@ -10,6 +11,7 @@ interface InvoiceDetailsSectionProps {
   paymentTerms: string;
   setPaymentTerms: (terms: string) => void;
   portalContainer: HTMLElement | null;
+  defaultValues?: Invoice;
 }
 
 export function InvoiceDetailsSection({
@@ -19,15 +21,16 @@ export function InvoiceDetailsSection({
   paymentTerms,
   setPaymentTerms,
   portalContainer,
+  defaultValues,
 }: InvoiceDetailsSectionProps) {
   return (
     <fieldset className={styles.fieldset}>
       <div className={styles.row2}>
-        <DatePicker 
-          label="Invoice Date" 
-          value={invoiceDate} 
+        <DatePicker
+          label="Invoice Date"
+          value={invoiceDate}
           onChange={setInvoiceDate}
-          portalContainer={portalContainer} 
+          portalContainer={portalContainer}
         />
         <Dropdown
           id="paymentTerms"
@@ -44,12 +47,13 @@ export function InvoiceDetailsSection({
         />
       </div>
       <div className={styles.rowFull}>
-        <TextField 
-          id="description" 
-          name="description" 
-          label="Project Description" 
+        <TextField
+          id="description"
+          name="description"
+          label="Project Description"
           placeholder="e.g. Graphic Design"
-          error={errors["description"]} 
+          error={errors["description"]}
+          defaultValue={defaultValues?.description}
         />
       </div>
     </fieldset>
