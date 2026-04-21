@@ -79,6 +79,7 @@ export function DatePicker({
           >
             <div className={styles.header}>
               <button
+                type="button"
                 aria-label="Previous month"
                 className={styles.navButton}
                 onClick={handlePrevMonth}
@@ -89,6 +90,7 @@ export function DatePicker({
                 {format(currentMonth, "MMM yyyy")}
               </span>
               <button
+                type="button"
                 aria-label="Next month"
                 className={styles.navButton}
                 onClick={handleNextMonth}
@@ -107,6 +109,7 @@ export function DatePicker({
                 return (
                   <button
                     key={day.toISOString()}
+                    type="button"
                     onClick={() => handleDateClick(day)}
                     className={`${styles.day} ${
                       isOutside ? styles.dayOutside : ""
