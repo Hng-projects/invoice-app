@@ -14,6 +14,13 @@
     background-color 0.2s ease,
     color 0.2s ease;
   padding: 16px 24px;
+  white-space: nowrap;
+  outline: none;
+
+  &:focus-visible {
+    outline: 2px solid var(--color-primary-light);
+    outline-offset: 2px;
+  }
 }
 
 .withIcon {
