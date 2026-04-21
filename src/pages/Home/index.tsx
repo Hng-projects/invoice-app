@@ -20,6 +20,11 @@ export function Home() {
   };
 
   const handleToggleStatus = (status: string) => {
+    if (status === "all") {
+      setFilterStatuses([]);
+      return;
+    }
+
     setFilterStatuses((prev) =>
       prev.includes(status)
         ? prev.filter((s) => s !== status)

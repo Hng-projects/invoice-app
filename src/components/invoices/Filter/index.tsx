@@ -30,14 +30,19 @@ export function Filter({ selectedStatuses, onToggleStatus }: FilterProps) {
           sideOffset={22}
           align="center"
         >
-          {["Draft", "Pending", "Paid"].map((label) => {
+          {["All", "Draft", "Pending", "Paid"].map((label) => {
             const val = label.toLowerCase();
+            const isChecked =
+              val === "all"
+                ? selectedStatuses.length === 0
+                : selectedStatuses.includes(val);
+
             return (
               <label key={val} className={styles.option}>
                 <input
                   type="checkbox"
                   className={styles.checkbox}
-                  checked={selectedStatuses.includes(val)}
+                  checked={isChecked}
                   onChange={() => onToggleStatus(val)}
                 />
                 <div className={styles.customCheck}>
