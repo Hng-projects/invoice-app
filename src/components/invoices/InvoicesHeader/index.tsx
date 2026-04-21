@@ -7,12 +7,14 @@ interface InvoicesHeaderProps {
   invoiceCount: number;
   selectedStatuses: string[];
   onToggleStatus: (status: string) => void;
+  onNewInvoice: () => void;
 }
 
 export function InvoicesHeader({
   invoiceCount,
   selectedStatuses,
   onToggleStatus,
+  onNewInvoice,
 }: InvoicesHeaderProps) {
   return (
     <header className={styles.header}>
@@ -31,7 +33,7 @@ export function InvoicesHeader({
       </div>
       <div className={styles.right}>
         <Filter selectedStatuses={selectedStatuses} onToggleStatus={onToggleStatus} />
-        <Button icon={<FaPlus size={12} />} onClick={() => console.log("New Invoice")}>
+        <Button icon={<FaPlus size={12} />} onClick={onNewInvoice}>
           New<span className={styles.buttonText}>{" "}Invoice</span>
         </Button>
       </div>
