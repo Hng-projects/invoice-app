@@ -1,5 +1,6 @@
 import { useState, type Dispatch, type SetStateAction } from "react";
 import { Link, useParams, useOutletContext, useNavigate } from "react-router";
+import * as Popover from "@radix-ui/react-popover";
 import { FiChevronLeft } from "react-icons/fi";
 import { StatusBadge } from "../../components/invoices/StatusBadge";
 import { Button } from "../../components/ui/Button";
@@ -19,6 +20,7 @@ export function InvoiceDetails() {
   const invoice = invoices.find((inv) => inv.id === id);
   const [isEditFormOpen, setIsEditFormOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [isStatusPopoverOpen, setIsStatusPopoverOpen] = useState(false);
 
   const handleSaveInvoice = (updatedInvoice: Invoice) => {
     setInvoices((prev) =>
@@ -61,7 +63,38 @@ export function InvoiceDetails() {
       <div className={styles.actionBar}>
         <div className={styles.statusGroup}>
           <span>Status</span>
-          <StatusBadge status={invoice.status} />
+          <Popover.Root open={isStatusPopoverOpen} onOpenChange={setIsStatusPopoverOpen}>
+            <Popover.Trigger asChild>
+              <button 
+                className={styles.badgeTrigger}
+                disabled={invoice.status === "paid"}
+              >
+                <StatusBadge status={invoice.status} />
+              </button>
+            </Popover.Trigger>
+            <Popover.Portal>
+              <Popover.Content
+                className={styles.statusPopover}
+                sideOffset={8}
+                align="start"
+              >
+                {["draft", "pending", "paid"].map((st) => (
+                  <button 
+                    key={st} 
+                    className={styles.statusOption}
+                    onClick={() => {
+                      setInvoices((prev) =>
+                        prev.map((inv) => (inv.id === id ? { ...inv, status: st as any } : inv)),
+                      );
+                      setIsStatusPopoverOpen(false);
+                    }}
+                  >
+                    <StatusBadge status={st as any} />
+                  </button>
+                ))}
+              </Popover.Content>
+            </Popover.Portal>
+          </Popover.Root>
         </div>
         <div className={styles.desktopButtons}>
           {invoice.status !== "paid" && (
