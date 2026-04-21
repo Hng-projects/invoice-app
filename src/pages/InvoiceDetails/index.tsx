@@ -30,7 +30,7 @@ export function InvoiceDetails() {
 
   const confirmDelete = () => {
     setInvoices((prev) => prev.filter((inv) => inv.id !== id));
-    navigate("/");
+    navigate("/", { viewTransition: true });
   };
 
   if (!invoice) {
@@ -56,16 +56,19 @@ export function InvoiceDetails() {
 
   return (
     <div className={styles.container}>
-      <Link to="/" className={styles.goBack}>
+      <Link to="/" className={styles.goBack} viewTransition>
         <FiChevronLeft size={16} /> Go back
       </Link>
 
       <div className={styles.actionBar}>
         <div className={styles.statusGroup}>
           <span>Status</span>
-          <Popover.Root open={isStatusPopoverOpen} onOpenChange={setIsStatusPopoverOpen}>
+          <Popover.Root
+            open={isStatusPopoverOpen}
+            onOpenChange={setIsStatusPopoverOpen}
+          >
             <Popover.Trigger asChild>
-              <button 
+              <button
                 className={styles.badgeTrigger}
                 disabled={invoice.status === "paid"}
               >
@@ -79,12 +82,14 @@ export function InvoiceDetails() {
                 align="start"
               >
                 {["draft", "pending", "paid"].map((st) => (
-                  <button 
-                    key={st} 
+                  <button
+                    key={st}
                     className={styles.statusOption}
                     onClick={() => {
                       setInvoices((prev) =>
-                        prev.map((inv) => (inv.id === id ? { ...inv, status: st as any } : inv)),
+                        prev.map((inv) =>
+                          inv.id === id ? { ...inv, status: st as any } : inv,
+                        ),
                       );
                       setIsStatusPopoverOpen(false);
                     }}
@@ -221,15 +226,15 @@ export function InvoiceDetails() {
         )}
       </div>
 
-      <InvoiceForm 
-        isOpen={isEditFormOpen} 
-        onClose={() => setIsEditFormOpen(false)} 
-        isEdit={true} 
+      <InvoiceForm
+        isOpen={isEditFormOpen}
+        onClose={() => setIsEditFormOpen(false)}
+        isEdit={true}
         defaultValues={invoice}
         onSave={handleSaveInvoice}
       />
 
-      <DeleteModal 
+      <DeleteModal
         isOpen={isDeleteModalOpen}
         onClose={() => setIsDeleteModalOpen(false)}
         onConfirm={confirmDelete}

@@ -18,7 +18,7 @@ export function InvoiceItem({
   }).format(total);
 
   return (
-    <Link to={`/invoice/${id}`} className={styles.card}>
+    <Link to={`/invoice/${id}`} className={styles.card} viewTransition>
       <div className={styles.mobileTop}>
         <span className={styles.id}>
           <span className={styles.hash}>#</span>

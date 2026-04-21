@@ -36,11 +36,18 @@ export function useNativeModal(isOpen: boolean) {
 
     if (isOpen) {
       if (!dialog.open) dialog.showModal();
+      
+      const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+      document.body.style.paddingRight = `${scrollbarWidth}px`;
       document.body.style.overflow = "hidden";
+      
       dialog.addEventListener("keydown", handleFocusTrap);
     } else {
       if (dialog.open) dialog.close();
+      
+      document.body.style.paddingRight = "";
       document.body.style.overflow = "";
+      
       dialog.removeEventListener("keydown", handleFocusTrap);
     }
 
