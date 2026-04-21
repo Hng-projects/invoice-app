@@ -4,6 +4,7 @@ import { FiChevronLeft } from "react-icons/fi";
 import { StatusBadge } from "../../components/invoices/StatusBadge";
 import { Button } from "../../components/ui/Button";
 import { InvoiceForm } from "../../components/invoices/InvoiceForm";
+import { DeleteModal } from "../../components/invoices/DeleteModal";
 import type { Invoice } from "../../types";
 import styles from "./invoice-details.module.css";
 
@@ -17,11 +18,17 @@ export function InvoiceDetails() {
 
   const invoice = invoices.find((inv) => inv.id === id);
   const [isEditFormOpen, setIsEditFormOpen] = useState(false);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
   const handleSaveInvoice = (updatedInvoice: Invoice) => {
     setInvoices((prev) =>
       prev.map((inv) => (inv.id === updatedInvoice.id ? updatedInvoice : inv)),
     );
+  };
+
+  const confirmDelete = () => {
+    setInvoices((prev) => prev.filter((inv) => inv.id !== id));
+    navigate("/");
   };
 
   if (!invoice) {
@@ -45,11 +52,6 @@ export function InvoiceDetails() {
     );
   };
 
-  const handleDelete = () => {
-    setInvoices((prev) => prev.filter((inv) => inv.id !== id));
-    navigate("/");
-  };
-
   return (
     <div className={styles.container}>
       <Link to="/" className={styles.goBack}>
@@ -67,7 +69,7 @@ export function InvoiceDetails() {
               Edit
             </Button>
           )}
-          <Button variant="danger" onClick={handleDelete}>
+          <Button variant="danger" onClick={() => setIsDeleteModalOpen(true)}>
             Delete
           </Button>
           {invoice.status !== "paid" && (
@@ -176,7 +178,7 @@ export function InvoiceDetails() {
             Edit
           </Button>
         )}
-        <Button variant="danger" onClick={handleDelete}>
+        <Button variant="danger" onClick={() => setIsDeleteModalOpen(true)}>
           Delete
         </Button>
         {invoice.status !== "paid" && (
@@ -192,6 +194,13 @@ export function InvoiceDetails() {
         isEdit={true} 
         defaultValues={invoice}
         onSave={handleSaveInvoice}
+      />
+
+      <DeleteModal 
+        isOpen={isDeleteModalOpen}
+        onClose={() => setIsDeleteModalOpen(false)}
+        onConfirm={confirmDelete}
+        invoiceId={invoice.id}
       />
     </div>
   );
