@@ -197,7 +197,8 @@ export function useInvoiceForm(
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    saveInvoice("pending");
+    const targetStatus = (isEdit && defaultValues?.status === "draft") ? "draft" : "pending";
+    saveInvoice(targetStatus);
   };
 
   const hasEmptyErrors = Object.values(errors).includes("can't be empty");
