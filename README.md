@@ -1,73 +1,58 @@
-# React + TypeScript + Vite
+# HNG Invoice App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**Live Demo:** [https://hng-projects.github.io/invoice-app](https://hng-projects.github.io/invoice-app)
 
-Currently, two official plugins are available:
+This is a React invoice management app I built for the HNG internship stage 2 task. My main goal was to create a clean, working app where you can manage your invoices and save your changes. The UI was built by reproducing this [Figma Design](https://www.figma.com/design/e3MtRefbZw41Ts897CQF4N/invoice-app?node-id=0-1&p=f).
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Getting Started
 
-## React Compiler
+1. **Clone the Repository**:
+   ```bash
+   git clone https://github.com/Hng-projects/invoice-app.git
+   cd invoice-app
+   ```
+2. **Install Dependencies**:
+   Make sure you have Node.js and `pnpm` installed.
+   ```bash
+   pnpm install
+   ```
+3. **Run Locally**:
+   ```bash
+   pnpm run dev
+   ```
+4. **Build for Production**:
+   ```bash
+   pnpm run build
+   ```
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Design and Architecture
 
-## Expanding the ESLint configuration
+I built this project with React 19, TypeScript, and Vite. I also used React Router v7 to handle the different pages and URL routing.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+To keep things simple without setting up an actual database, I used the browser's `localStorage` to save the invoice data. This means when you add, edit, or delete an invoice, the changes are saved in your browser and will still be there even if you refresh the page.
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+For styling, I used regular Vanilla CSS Modules instead of a framework like Tailwind. Honestly, I just prefer standard CSS. I find it much easier to read and understand without having to memorize a bunch of generic utility class names, and it keeps my styles neatly separated per component.
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## Technical Choices
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+I made a few specific choices while building this:
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+- **Native `<dialog>` elements:** Instead of downloading a third-party library for the modals, I used the browser's built-in `<dialog>` tags. They can be a little annoying to animate, but by using some newer CSS features ([`@starting-style`](./src/components/invoices/InvoiceForm/invoice-form.module.css#L42)), I got them to fade and slide naturally without needing extra JavaScript.
+- **Local Storage over a Backend:** As mentioned earlier, I stuck to `localStorage` instead of building a real backend. It's fast and gets the job done for a frontend task, though it obviously means your invoices are only saved on your specific computer.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## Accessibility
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+I tried to make sure the app was accessible and easy to use:
+
+- **Focus Trapping:** When you open the form or a popup, I wrote a small custom hook that traps your keyboard's "Tab" focus inside that modal, so you don't accidentally highlight buttons hidden in the background (see [`useNativeModal.ts:12-35`](./src/components/invoices/InvoiceForm/hooks/useNativeModal.ts#L12)).
+- **Accessible Dropdowns:** I used Radix UI for the dropdown menus. It automatically handles all the correct screen-reader tags (WAI-ARIA) and keyboard controls.
+- **Dark Mode:** The app includes a fully working dark mode toggle that swaps out CSS color variables for better contrast.
+
+## Extra Touches
+
+I added a few small extras to make the app feel a bit nicer:
+
+- **Page Transitions:** I turned on React Router's new View Transitions feature to make moving between the invoice list and the details page look smoother.
+- **Fixing Scrollbar Jumps:** Usually, hiding the page scrollbar when a modal opens causes the whole screen to jump horizontally. I added some quick math to temporarily replace the scrollbar's width with padding to fix that annoying visual bug (see [`useNativeModal.ts:39-42`](./src/components/invoices/InvoiceForm/hooks/useNativeModal.ts#L39)).
+- **Quick Status Updates:** You can click the status badge on the details page to quickly change it between "Pending," "Draft," and "Paid" using a little dropdown.
+- **Status Rules:** I added a small rule that permanently disables the edit button and status dropdown as soon as an invoice is officially marked as "Paid".
