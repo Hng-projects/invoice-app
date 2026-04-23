@@ -10,7 +10,6 @@ export function Sidebar() {
   return (
     <aside className={styles.sidebar}>
       <div className={styles.logoContainer}>
-        <div className={styles.logoSemiCircle}></div>
         <img src="/logo.svg" alt="Invoice App Logo" className={styles.logo} />
       </div>
 
